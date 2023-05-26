@@ -20,7 +20,7 @@ std::string get_ASCII_from_pixel(const int pixelintensity) {
 }
 
 int main() {
-  const std::string video_path = getpathto("vid1.mp4");
+  const std::string video_path = getpathto("video1.mp4");
   cv::VideoCapture video_capture(video_path);
 
   if (!video_capture.isOpened()) {

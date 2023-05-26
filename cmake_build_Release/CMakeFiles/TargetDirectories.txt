@@ -1,0 +1,3 @@
+/home/xander/Code/Cpp/Contests/ASCIIvideo/cmake_build_Release/CMakeFiles/MyExecutable.dir
+/home/xander/Code/Cpp/Contests/ASCIIvideo/cmake_build_Release/CMakeFiles/edit_cache.dir
+/home/xander/Code/Cpp/Contests/ASCIIvideo/cmake_build_Release/CMakeFiles/rebuild_cache.dir
