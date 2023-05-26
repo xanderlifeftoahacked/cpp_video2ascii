@@ -20,11 +20,12 @@ std::string get_ASCII_from_pixel(const int pixelintensity) {
 }
 
 int main() {
+  std::ios_base::sync_with_stdio(false);
   const std::string video_path = getpathto("video1.mp4");
   cv::VideoCapture video_capture(video_path);
 
   if (!video_capture.isOpened()) {
-    std::cerr << "Failed to open video file." << std::endl;
+    std::cerr << "Failed to open video file.\n";
     return -1;
   }
 
@@ -35,8 +36,7 @@ int main() {
   static const int frame_width = video_capture.get(cv::CAP_PROP_FRAME_WIDTH);
   static const int frame_height = video_capture.get(cv::CAP_PROP_FRAME_HEIGHT);
 
-  cv::Mat original_frame, grayscaled_frame, grayscaled_resized_frame, final_img;
-  video_capture >> original_frame;
+  cv::Mat original_frame, grayscaled_frame, grayscaled_resized_frame;
 
   for (;;) {
     std::string output;
@@ -47,12 +47,13 @@ int main() {
     cv::cvtColor(original_frame, grayscaled_frame, cv::COLOR_BGR2GRAY);
     cv::resize(grayscaled_frame, grayscaled_resized_frame,
                cv::Size(screen_width, screen_height), 0, 0, cv::INTER_LINEAR);
+
     for (int x = 0; x < screen_height; ++x) {
       for (int y = 0; y < screen_width; ++y) {
         output +=
             get_ASCII_from_pixel(grayscaled_resized_frame.at<uchar>(x, y));
       }
-      output += "\n";
+      output += '\n';
     }
     std::system("clear");
     std::cout << output << std::flush;
