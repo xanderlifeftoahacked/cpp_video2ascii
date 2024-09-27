@@ -1,7 +1,0 @@
-/home/xander/code/cpp/cpp_video2ascii/CMakeFiles/MyExecutable.dir
-/home/xander/code/cpp/cpp_video2ascii/CMakeFiles/edit_cache.dir
-/home/xander/code/cpp/cpp_video2ascii/CMakeFiles/rebuild_cache.dir
-/home/xander/code/cpp/cpp_video2ascii/CMakeFiles/list_install_components.dir
-/home/xander/code/cpp/cpp_video2ascii/CMakeFiles/install.dir
-/home/xander/code/cpp/cpp_video2ascii/CMakeFiles/install/local.dir
-/home/xander/code/cpp/cpp_video2ascii/CMakeFiles/install/strip.dir

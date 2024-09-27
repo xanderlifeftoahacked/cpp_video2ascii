@@ -1,5 +1,6 @@
 cmake_build_Debug/
 cmake_build_Release/
+CMakeFiles/
 compile_commands.json
 .cache/
 .gitignore
