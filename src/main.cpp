@@ -1,7 +1,7 @@
 #include <chrono>
 #include <iostream>
-#include <opencv2/opencv.hpp>
-#include <opencv2/videoio.hpp>
+#include <opencv4/opencv2/videoio.hpp>
+#include <opencv4/opencv2/imgproc.hpp>
 #include <string>
 #include <thread>
 
@@ -16,9 +16,7 @@ const std::string getpathto(const char *file) {
 const char get_ASCII_from_pixel(const int pixelintensity) {
   std::string chars_by_brightness = "$@B%8&#*/|(-_+;:,.  ";
   std::reverse(chars_by_brightness.begin(), chars_by_brightness.end());
-  return chars_by_brightness[static_cast<float>(pixelintensity *
-                                                chars_by_brightness.length()) /
-                             256.f];
+  return chars_by_brightness[static_cast<float>(pixelintensity * chars_by_brightness.length()) / 256.f];
 }
 
 int main() {
@@ -37,17 +35,16 @@ int main() {
   const int frame_width = video_capture.get(cv::CAP_PROP_FRAME_WIDTH);
   const int frame_height = video_capture.get(cv::CAP_PROP_FRAME_HEIGHT);
   const int screen_height = 120;
-  const int screen_width =
-      screen_height * (frame_width / frame_height) * correction_factor;
+  const int screen_width = screen_height * (frame_width / frame_height) * correction_factor;
 
   int starttime = 0, endtime = 0, framedrawtime = 0, i = 0;
   cv::Mat original_frame, grayscaled_frame, grayscaled_resized_frame;
 
   initscr();
   for (;;) {
-    starttime = std::chrono::duration_cast<std::chrono::milliseconds>(
-                    std::chrono::system_clock::now().time_since_epoch())
-                    .count();
+    starttime =
+        std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch())
+            .count();
     i = fpsdif;
     while (--i) {
       video_capture.grab();
@@ -58,26 +55,23 @@ int main() {
       break;
 
     cv::cvtColor(original_frame, grayscaled_frame, cv::COLOR_BGR2GRAY);
-    cv::resize(grayscaled_frame, grayscaled_resized_frame,
-               cv::Size(screen_width, screen_height), 0, 0, cv::INTER_LINEAR);
+    cv::resize(grayscaled_frame, grayscaled_resized_frame, cv::Size(screen_width, screen_height), 0, 0,
+               cv::INTER_LINEAR);
 
     for (int x = 0; x < screen_height; ++x) {
       for (int y = 0; y < screen_width; ++y) {
-        mvaddch(x, y,
-                get_ASCII_from_pixel(grayscaled_resized_frame.at<uchar>(x, y)));
+        mvaddch(x, y, get_ASCII_from_pixel(grayscaled_resized_frame.at<uchar>(x, y)));
       }
     }
 
     refresh();
 
-    endtime = std::chrono::duration_cast<std::chrono::milliseconds>(
-                  std::chrono::system_clock::now().time_since_epoch())
+    endtime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch())
                   .count();
 
     framedrawtime = endtime - starttime;
 
-    std::this_thread::sleep_for(
-        std::chrono::milliseconds(fpsdif * frame_duration - framedrawtime));
+    std::this_thread::sleep_for(std::chrono::milliseconds(fpsdif * frame_duration - framedrawtime));
   }
 
   endwin();
